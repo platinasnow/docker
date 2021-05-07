@@ -2,19 +2,19 @@
 
 ## Docker란?
 
-###Docker 원리
+### Docker 원리
 ```
 1
 ```
 
-###Docker와 VMware
+### Docker와 VMware
 ```
 2
 ```
 
-##Docker 사용
+## Docker 사용
 
-###설치
+### 설치
 
 ```
   - search
@@ -26,7 +26,7 @@
   - exec
 ```
 
-##Docker File
+## Docker File
 ```
   - FROM
   - RUN
@@ -38,18 +38,18 @@
   - VOLUMN
 ```
 
-##Docker Compose
+## Docker Compose
 
-###설치
+### 설치
 
-###실행
+### 실행
 ```
   - docker-compose up -d
   - docker-compose down
   - docker-compose scale mysql=2
 ```
 
-###명령어
+### 명령어
 ```
   - version
   - services
