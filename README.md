@@ -98,7 +98,13 @@ $ sudo apt-get update && sudo apt-get install docker-ce
   * exec
 ```
 
-## Docker File
+## Dockerfile
+
+### Dockerfile?
+사용자가 도커 이미지를 조합하기 위해서 Command Line에 적는 모든 명령어들을 모아놓은 파일입니다. <br/>
+이미지를 만들어 컨테이너를 실행시키는 것이 전부가 아닌 환경을 구성하거나 파일을 복사하고 권한을 조정하는 등의 일련의 작업을 기록합니다.
+Dockerfile 이라는 파일을 생성 후 내용을 적은 후에 docker build . 로 실행할 수 있습니다.
+
 ```
   - FROM
   - RUN
@@ -111,6 +117,8 @@ $ sudo apt-get update && sudo apt-get install docker-ce
 ```
 
 ## Docker Compose
+Dockerfile로는 1개의 컨테이너만 관리가 됩니다. 서버 한대에 2개 이상의 컨테이너를 관리하게 될 경우 Dockerfile의 갯수가 많아지고 <br/>
+이 경우 관리가 곤란해 질 수 있습니다. Docker Compose는 여러개의 Dockerfile을 관리하기 위해 등장하였습니다.
 
 ### Installation
 
@@ -122,9 +130,10 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-
 
 ### Getting Started
 * docker-compose 는 사전에 설정이 정의된 yaml 파일을 읽어 도커 엔진을 통해 컨테이너를 실행합니다.
-* 현재 디렉토리에서 docker-compose.yaml 파일을 읽어 해당 파일을 실행시킵니다.<br/> 
-  (build 명령어를 통해 DockerFile을 읽어 실행시키며 없어도 실행 가능합니다.)
-* 기존에 docker run으로 실행시키던 구문을 다음과 같이 정의하여 실행 시킬 수 있습니다.
+* 현재 디렉토리에서 docker-compose.yaml 파일을 읽어 해당 파일을 실행시킵니다.<br/>   
+* 기존에 docker run으로 실행시키던 구문을 다음과 같이 정의하여 실행 시킬 수 있습니다.<br/>
+  (DockerFile 파일을 만들어 둔 경우엔 build: 구문을 통해 Dockerfile을 실행시킬 수 있습니다.) 
+  
 
 #### docker run
 ```
