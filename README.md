@@ -42,6 +42,8 @@ Docker 컨테이너는 프로세스 단위의 격리된 환경의 가상화 된 
 
 2. 이미지 및 배포
  Docker의 경우 구동을 위한 프로그램과 라이브러리만으로 이미지를 만들기 때문에 상대적으로 가볍습니다. 
+ 그리고 Layer개념을 사용하여 기존에 사용하던 이미지가 A + B (Ubuntu + Java로 가정)로 구성되어 있고
+ 새로 받는 이미지가 A + C (Ubuntu + MySql)로 구성되어 있다면 C만 받아서 이용이 가능합니다. 
  또한 Docker Hub를 통하여 이미지를 손쉽게 올리거나 내려받을 수 있어 관리에도 용이합니다.
  반면 Virtual Machine의 경우 반드시 OS를 포함하기 때문에 상대적으로 크기가 커질 수 밖에 없습니다.
 ```
@@ -49,6 +51,10 @@ Docker 컨테이너는 프로세스 단위의 격리된 환경의 가상화 된 
 
 *이미지 출저 : https://www.docker.com/resources/what-container
 
+
+### Docker가 유용한 이유
+1. 개발과 유지운영
+2. 독립성과 확장성
 
 ## Getting Started
 
@@ -83,13 +89,13 @@ $ sudo apt-get update && sudo apt-get install docker-ce
 
 ### 명령어
 ```
-  - search
-  - pull
-  - images / rmi
-  - run / rm
-  - ps
-  - start / restart / stop
-  - exec
+  * search
+  * pull
+  * images / rmi
+  * run / rm
+  * ps
+  * start / restart / stop
+  * exec
 ```
 
 ## Docker File
@@ -114,14 +120,57 @@ $ sudo apt-get update && sudo apt-get install docker-ce
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-### 실행
+### Getting Started
+* docker-compose 는 사전에 설정이 정의된 yaml 파일을 읽어 도커 엔진을 통해 컨테이너를 실행합니다.
+* 현재 디렉토리에서 docker-compose.yaml 파일을 읽어 해당 파일을 실행시킵니다.<br/> 
+  (build 명령어를 통해 DockerFile을 읽어 실행시키며 없어도 실행 가능합니다.)
+* 기존에 docker run으로 실행시키던 구문을 다음과 같이 정의하여 실행 시킬 수 있습니다.
+
+#### docker run
 ```
-  - docker-compose up -d
-  - docker-compose down
-  - docker-compose scale mysql=2
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v /home/ubuntu/jenkins:/var/jenkins_home jenkins/jenkins
 ```
 
-### 명령어
+#### docker-compose.yaml
+* docker-compose up -d 로 실행시킵니다.
+
+```
+version : '3.8'             # docker-compose version at least 19.03.0
+services:
+  jenkins:                  # docker service name
+    image: jenkins/jenkins  # docker images
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:                # docker volumn
+      - /home/ubuntu/jenkins:/var/jenkins_home
+```
+
+
+* 다음과 같이 여러 서비스들을 정의 할 수 있습니다.
+```
+version : '3.8'             # docker-compose version at least 19.03.0
+services:
+  jenkins:                  # docker service name
+    image: jenkins/jenkins  # docker images
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:                # docker volumn
+      - /home/ubuntu/jenkins:/var/jenkins_home
+  mysql:
+    image: library/mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test123!
+
+```
+
+
+### 구성 
 ```
   - version
   - services
@@ -135,6 +184,12 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-
   - links
 ```
 
+### 실행
+```
+  - docker-compose up -d
+  - docker-compose down
+  - docker-compose scale mysql=2
+```
 
  
  
