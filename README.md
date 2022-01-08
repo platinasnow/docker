@@ -196,7 +196,7 @@ services:
       - "3306:3306"
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-    environment:
+    environment:            # Configuration variables provided by imagefile
       MYSQL_ROOT_PASSWORD: test123!
   redis:
     image: library/redis
