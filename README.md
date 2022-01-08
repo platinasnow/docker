@@ -121,6 +121,24 @@ Dockerfile 이라는 파일을 생성 후 내용을 적은 후에 docker build .
   - VOLUMN
 ```
 
+#### Dockerfile Sample
+```
+FROM ubuntu:16.04
+
+RUN apt-get update
+RUN apt-get install -y openjdk-8-jdk
+
+COPY demo-0.0.1-SNAPSHOT.jar /
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/demo-0.0.1-SNAPSHOT.jar"]
+
+```
+
+
+
+
 ## Docker Compose
 Dockerfile로는 1개의 컨테이너만 관리가 됩니다. 서버 한대에 2개 이상의 컨테이너를 관리하게 될 경우 Dockerfile의 갯수가 많아지고 <br/>
 이 경우 관리가 곤란해 질 수 있습니다. Docker Compose는 여러개의 Dockerfile을 관리하기 위해 등장하였습니다.
