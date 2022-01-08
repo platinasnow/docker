@@ -203,7 +203,7 @@ services:
     build:
       dockerfile: .
     ports:
-      - 6379 : 6379
+      - "6379:6379"
     restart: always
     
 
