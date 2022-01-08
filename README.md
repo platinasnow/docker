@@ -198,6 +198,14 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: test123!
+  redis:
+    image: library/redis
+    build:
+      dockerfile: .
+    ports:
+      - 6379 : 6379
+    restart: always
+    
 
 ```
 
